@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -25,9 +25,11 @@ class FirstFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            addButton()
-            addButton()
-            addButton()
+            addButton("Paul")
+            addButton("Soufian")
+            addButton("Zoé")
+            addButton("Jo'")
+            addButton("Tristan")
         }
         super.onCreate(savedInstanceState)
     }
@@ -41,10 +43,13 @@ class FirstFragment : Fragment() {
         return binding.root
     }
 
-    fun addButton() {
+    fun addButton(name: String) {
         val fragmentManager: FragmentManager = childFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         val fragment = PlayerButton().apply {
+            arguments = bundleOf(
+                "player" to name,
+            )
         }
         fragmentTransaction.add(R.id.button_layout, fragment)
         fragmentTransaction.commit()

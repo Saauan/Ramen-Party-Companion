@@ -1,15 +1,14 @@
 package saauan.ramenpartycompanion
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import saauan.ramenpartycompanion.databinding.FragmentPlayerButtonBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
+private const val ARG_PLAYER = "player"
 
 /**
  * A simple [Fragment] subclass.
@@ -17,24 +16,37 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PlayerButton : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentPlayerButtonBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
+    private var player: Player? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            player = Player(it.getString(ARG_PLAYER)!!)
         }
+        println("Player : $player")
+        println("Arguments : $arguments")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentPlayerButtonBinding.inflate(inflater, container, false)
+        binding.playerButton.text = player?.name
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_player_button, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     companion object {
@@ -48,11 +60,10 @@ class PlayerButton : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String) =
             PlayerButton().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(ARG_PLAYER, param1)
                 }
             }
     }

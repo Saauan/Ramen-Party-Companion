@@ -1,6 +1,7 @@
 package saauan.ramenpartycompanion
 
-data class Player(var score: Int) {
+data class Player(val name: String) {
+    var score = 0
     fun incrementScore() {
         score++
     }
