@@ -1,12 +1,16 @@
 package saauan.ramenpartycompanion
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
 import saauan.ramenpartycompanion.databinding.FragmentFirstBinding
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -19,14 +23,31 @@ class FirstFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            addButton()
+            addButton()
+            addButton()
+        }
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
+    }
 
+    fun addButton() {
+        val fragmentManager: FragmentManager = childFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = PlayerButton().apply {
+        }
+        fragmentTransaction.add(R.id.button_layout, fragment)
+        fragmentTransaction.commit()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

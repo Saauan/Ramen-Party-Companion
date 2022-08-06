@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".FirstFragment">
 
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+<!--        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView2"
+            android:name="saauan.ramenpartycompanion.PlayerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />-->
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textview_first"
         android:layout_width="wrap_content"
@@ -14,7 +30,7 @@
         app:layout_constraintBottom_toTopOf="@id/button_first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/button_layout" />
 
     <Button
         android:id="@+id/button_first"
