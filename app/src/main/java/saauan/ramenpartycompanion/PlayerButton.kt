@@ -39,6 +39,7 @@ class PlayerButton : Fragment() {
     ): View {
         _binding = FragmentPlayerButtonBinding.inflate(inflater, container, false)
         binding.playerButton.text = player?.name
+        updateScoreDisplay()
 
         // Inflate the layout for this fragment
         return binding.root
@@ -47,6 +48,23 @@ class PlayerButton : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.playerButton.setOnClickListener {
+            incrementScore()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    fun incrementScore() {
+        player?.incrementScore()
+        updateScoreDisplay()
+    }
+
+    private fun updateScoreDisplay() {
+        binding.currentScore.text = player?.score.toString().padStart(3, '0')
     }
 
     companion object {
@@ -55,10 +73,8 @@ class PlayerButton : Fragment() {
          * this fragment using the provided parameters.
          *
          * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
          * @return A new instance of fragment PlayerButton.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String) =
             PlayerButton().apply {
