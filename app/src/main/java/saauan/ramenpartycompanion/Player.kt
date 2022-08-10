@@ -6,6 +6,10 @@ data class Player(val name: String) {
         score++
     }
 
+    fun decrementScore() {
+        score--
+    }
+
     fun reset() {
         score = 0
     }

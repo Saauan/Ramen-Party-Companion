@@ -51,6 +51,9 @@ class PlayerButton : Fragment() {
         binding.playerButton.setOnClickListener {
             incrementScore()
         }
+        binding.minusButton.setOnClickListener {
+            decrementScore()
+        }
     }
 
     override fun onDestroyView() {
@@ -61,6 +64,13 @@ class PlayerButton : Fragment() {
     fun incrementScore() {
         player?.incrementScore()
         updateScoreDisplay()
+    }
+
+    fun decrementScore() {
+        if (player?.score!! > 0) {
+            player?.decrementScore()
+            updateScoreDisplay()
+        }
     }
 
     private fun updateScoreDisplay() {
