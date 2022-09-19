@@ -54,4 +54,19 @@ class PlayerButtonInstrumentedTest {
         onView(withId(R.id.minus_button)).perform(click())
         onView(withId(R.id.current_score)).check(matches(withText("000"))) // Does not go below zero
     }
+
+    @Test
+    fun resettingTheScoreSetsItAtZero() {
+        val fragmentArgs = bundleOf("player" to "Jean")
+        val scenario = launchFragmentInContainer<PlayerButton>(fragmentArgs)
+
+        onView(withId(R.id.player_button)).perform(click())
+        onView(withId(R.id.player_button)).perform(click())
+        onView(withId(R.id.current_score)).check(matches(withText("002")))
+
+        scenario.onFragment { fragment ->
+            fragment.resetScore()
+        }
+        onView(withId(R.id.current_score)).check(matches(withText("000")))
+    }
 }

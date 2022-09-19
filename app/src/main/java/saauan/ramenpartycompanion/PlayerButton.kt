@@ -73,6 +73,11 @@ class PlayerButton : Fragment() {
         }
     }
 
+    fun resetScore() {
+        player?.resetScore()
+        updateScoreDisplay()
+    }
+
     private fun updateScoreDisplay() {
         binding.currentScore.text = player?.score.toString().padStart(3, '0')
     }

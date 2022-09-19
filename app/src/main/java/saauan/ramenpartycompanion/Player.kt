@@ -10,7 +10,7 @@ data class Player(val name: String) {
         score--
     }
 
-    fun reset() {
+    fun resetScore() {
         score = 0
     }
 }

@@ -23,6 +23,8 @@ class FirstFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val playerButtons: MutableList<PlayerButton> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             addButton("Paul")
@@ -51,6 +53,7 @@ class FirstFragment : Fragment() {
                 "player" to name,
             )
         }
+        this.playerButtons.add(fragment)
         fragmentTransaction.add(R.id.button_layout, fragment)
         fragmentTransaction.commit()
     }
@@ -60,6 +63,9 @@ class FirstFragment : Fragment() {
 
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
+        binding.buttonReset.setOnClickListener {
+            this.playerButtons.forEach { it.resetScore() }
         }
     }
 
