@@ -1,5 +1,6 @@
 package saauan.ramenpartycompanion
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -65,7 +66,19 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
         binding.buttonReset.setOnClickListener {
-            this.playerButtons.forEach { it.resetScore() }
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            builder.setCancelable(true)
+            builder.setTitle("Êtes vous certains de vouloir faire cela ?")
+            builder.setMessage("Les score seront tous remit à zéro. Cette opération ne peut pas être défaite.")
+            builder.setPositiveButton("Confirmer") { _, _ ->
+                this.playerButtons.forEach { it.resetScore() }
+            }
+            builder.setNegativeButton(
+                android.R.string.cancel
+            ) { _, _ -> }
+
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
         }
     }
 
