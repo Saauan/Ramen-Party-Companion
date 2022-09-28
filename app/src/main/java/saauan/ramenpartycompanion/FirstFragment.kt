@@ -63,7 +63,9 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            val newBundle = Bundle()
+            newBundle.putSerializable("players", getAllPlayers() as ArrayList<Player>)
+            findNavController().navigate(R.id.action_FirstFragment_to_preResultFragment, newBundle)
         }
         binding.buttonReset.setOnClickListener {
             val builder: AlertDialog.Builder = AlertDialog.Builder(context)
@@ -80,6 +82,14 @@ class FirstFragment : Fragment() {
             val dialog: AlertDialog = builder.create()
             dialog.show()
         }
+    }
+
+    fun getAllPlayers(): List<Player> {
+        return playerButtons.map { playerFragmentToPlayer(it) }
+    }
+
+    fun playerFragmentToPlayer(fragment: PlayerButton): Player {
+        return fragment.player!!
     }
 
     override fun onDestroyView() {

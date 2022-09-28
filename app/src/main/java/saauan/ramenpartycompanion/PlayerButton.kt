@@ -22,7 +22,7 @@ class PlayerButton : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private var player: Player? = null
+    var player: Player? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
