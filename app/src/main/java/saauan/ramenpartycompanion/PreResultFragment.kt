@@ -10,7 +10,8 @@ import saauan.ramenpartycompanion.databinding.FragmentPreResultBinding
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
-private const val ARG_PLAYERS = "players"
+const val ARG_PLAYERS = "players"
+const val ARG_MULTIPLIER = "score_multiplier"
 
 class PreResultFragment : Fragment() {
 
@@ -21,7 +22,7 @@ class PreResultFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var players: List<Player>
-    private var currentMultiplier: Double = 0.0
+    private var currentMultiplier: Double = 1.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,7 @@ class PreResultFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentPreResultBinding.inflate(inflater, container, false)
-        changeMultiplier(0.0)
+        changeMultiplier(1.0)
         return binding.root
     }
 
@@ -49,9 +50,9 @@ class PreResultFragment : Fragment() {
         }
         binding.nextButton.setOnClickListener {
             val newBundle = Bundle()
-            newBundle.putSerializable("players", players as ArrayList<Player>)
-            newBundle.putDouble("score_multiplier", currentMultiplier)
-            findNavController().navigate(R.id.action_preResultFragment_to_resultFragment)
+            newBundle.putSerializable(ARG_PLAYERS, players as ArrayList<Player>)
+            newBundle.putDouble(ARG_MULTIPLIER, currentMultiplier)
+            findNavController().navigate(R.id.action_preResultFragment_to_resultFragment, newBundle)
         }
     }
 
